@@ -23,23 +23,18 @@ const studentsItems = document.getElementsByTagName('li')
 studentsdata =[]
 listOfStudents=[]
 
-function showPage (list, page) {
 for (let i = 0 ; i < studentsItems.length ; i +=1){
-studentsdata[i];
+   studentsdata.push(studentsItems[i])
+   
+ 
+   
+
+
+
+
+}
 
 console.log(studentsdata)
-
-
-
-}
-}
-
-
-
-
-
-
-
 
 /*** 
    Create the `showPage` function to hide all of the items in the 
@@ -69,3 +64,4 @@ console.log(studentsdata)
 
 
 // Remember to delete the comments that came with this file, and replace them with your own code comments.
+
