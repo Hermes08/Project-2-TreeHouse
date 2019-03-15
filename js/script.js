@@ -18,23 +18,77 @@ FSJS project 2 - List Filter and Pagination
 ***/
 // Reference https://www.sitepoint.com/community/t/looping-through-li-elements-in-ul/6049/2
 
-const studentList= document.getElementsByClassName('studentList')
-const studentsItems = document.getElementsByTagName('li')
-studentsdata =[]
-listOfStudents=[]
-
-for (let i = 0 ; i < studentsItems.length ; i +=1){
-   studentsdata.push(studentsItems[i])
-   
- 
-   
+const studentList = document.querySelectorAll('.student-item');		// Getting List of all student
+const studentsItems = document.getElementsByTagName('li');
+const students = [].slice.call(studentList);
+let page = 1;		// holding current page number
+const numberOfStudents = students.length;		// total number of students
+let pageSize = 10;
 
 
 
+function showPage(list, page) {
 
-}
+	let pageNumber = (page-1) * pageSize;
+	let nextPage = (pageNumber + pageSize);
 
-console.log(studentsdata)
+	xArray = students.slice(pageNumber, nextPage);
+	console.log(xArray);
+	for (let i = 0; i < students.length; i += 1) {
+		if (students[i] <= 10) {
+			students[i].style.display = 'block';
+
+		} else {
+			students[i].style.display = 'none';
+		}
+
+		for (let i = 0; i <= xArray.length; i += 1) {
+			if (xArray[i]) {
+				xArray[i].style.display = 'block';
+			}
+		}
+   }}
+
+const appendPageLinks = (students) => {
+
+		const numberOfPages = Math.ceil(numberOfStudents / pageSize);
+		let mainDiv = document.querySelector('.page');
+		let selector = document.createElement('div');
+		let orderedList = document.createElement('ul');
+		selector.classList.add("pagination");
+
+		mainDiv.appendChild(selector);
+
+		selector.appendChild(orderedList);
+
+
+
+		for (let i = 1; i < numberOfPages+1; i++) {
+			let listings = document.createElement("li");
+			let links = document.createElement("a");
+			links.textContent = i;
+			links.href = "#";
+			orderedList.appendChild(listings);
+			listings.appendChild(links);
+			const defaultActive = document.querySelector('a');
+			defaultActive.className = 'active';
+
+
+			links.addEventListener('click', (e) => {
+				showPage(students, i);
+
+				let livePage = document.getElementsByClassName('active');
+				if (livePage.length > 0) {
+					livePage[0].className = livePage[0].className.replace("active", "");
+				}
+            e.target.className = 'active';
+            console.log(e.target)
+			})
+		}
+	}
+
+   showPage(students, page);
+	appendPageLinks(students)
 
 /*** 
    Create the `showPage` function to hide all of the items in the 
